@@ -5,13 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Télécharger MonDahira</title>
   <style>
-    :root { color-scheme: light dark; }
+    :root {
+      color-scheme: light dark;
+      --primary: #153706;
+      --primary-muted: #F0F2EE;
+      --accent: #DEA002;
+      --accent-muted: #FAF3DC;
+      --surface-alt: #F5F5F7;
+      --border: #E5E5EA;
+      --text-primary: #1D1D1F;
+      --text-secondary: #6E6E73;
+      --text-tertiary: #86868B;
+      --text-disabled: #C7C7CC;
+    }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
-      color: #1c1c1e;
+      color: var(--text-primary);
       background: #fff;
       display: flex;
       min-height: 100vh;
@@ -19,48 +31,58 @@
       justify-content: center;
     }
     .wrap { max-width: 480px; padding: 40px 24px; text-align: center; }
-    h1 { font-size: 2rem; letter-spacing: -0.02em; margin: 0 0 4px; }
-    .sub { color: #8e8e93; margin: 0 0 32px; }
+    h1 { font-size: 2rem; letter-spacing: -0.02em; margin: 0 0 4px; color: var(--primary); }
+    .sub { color: var(--text-secondary); margin: 0 0 32px; }
     .links { display: flex; flex-direction: column; gap: 12px; }
     a.card, button.card {
       display: block;
       width: 100%;
       padding: 16px 18px;
       border-radius: 14px;
-      background: #f2f2f7;
-      color: #0a7ea4;
+      background: var(--primary-muted);
+      color: var(--primary);
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
-      border: none;
+      border: 1px solid var(--border);
       font-family: inherit;
       cursor: pointer;
     }
     a.card.primary {
-      background: #0a7ea4;
+      background: var(--primary);
       color: #fff;
+      border-color: var(--primary);
+    }
+    a.card.accent {
+      background: var(--accent-muted);
+      color: #7A5900;
+      border-color: var(--border);
     }
     button.card[disabled] {
-      color: #8e8e93;
+      background: var(--surface-alt);
+      color: var(--text-disabled);
+      border-color: var(--border);
       cursor: not-allowed;
     }
     .note {
       font-size: 0.85rem;
-      color: #8e8e93;
+      color: var(--text-tertiary);
       margin-top: 6px;
     }
     a.back {
       display: inline-block;
       margin-top: 32px;
-      color: #8e8e93;
+      color: var(--text-secondary);
       font-size: 0.9rem;
       text-decoration: none;
     }
     @media (prefers-color-scheme: dark) {
-      body { color: #e5e5ea; background: #000; }
-      .sub, .note, a.back { color: #98989f; }
-      a.card:not(.primary) { background: #1c1c1e; }
-      button.card[disabled] { background: #1c1c1e; }
+      body { color: #E5E5EA; background: #000; }
+      h1 { color: var(--accent); }
+      .sub, .note, a.back { color: #98989F; }
+      a.card:not(.primary):not(.accent) { background: #1C1C1E; color: #E5E5EA; border-color: #2C2C2E; }
+      a.card.accent { background: #2A230D; color: var(--accent); border-color: #3A2F14; }
+      button.card[disabled] { background: #1C1C1E; color: #636366; border-color: #2C2C2E; }
     }
   </style>
 </head>
@@ -94,7 +116,7 @@
     } else if (platform === "android") {
       html += '<button class="card" disabled>Bientôt disponible sur Android</button>';
       html += '<p class="note">L\'application est en cours de validation sur le Play Store.</p>';
-      html += '<a class="card" href="' + IOS_URL + '">Voir sur l\'App Store (iOS)</a>';
+      html += '<a class="card accent" href="' + IOS_URL + '">Voir sur l\'App Store (iOS)</a>';
     } else {
       html += '<a class="card primary" href="' + IOS_URL + '">Télécharger sur l\'App Store (iOS)</a>';
       html += '<button class="card" disabled>Bientôt disponible sur Android</button>';
