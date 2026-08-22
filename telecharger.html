@@ -60,7 +60,8 @@
       transition: opacity 0.15s ease, transform 0.1s ease;
       box-shadow: 0 6px 16px rgba(21, 55, 6, 0.22);
     }
-    a.card svg, button.card svg { width: 20px; height: 20px; flex: none; }
+    a.card svg, button.card svg { display: block; width: 20px; height: 20px; flex: none; }
+    a.card span, button.card span { display: block; line-height: 1; }
     a.card:active { opacity: 0.85; transform: scale(0.98); }
 
     a.card.accent {
