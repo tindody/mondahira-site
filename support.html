@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Support — MonDahira</title>
   <style>
+    /* Jetons repris tels quels de l'app : constants/colors.ts + constants/theme.ts.
+       L'app est en clair uniquement (app.json → userInterfaceStyle: "light"). */
     :root {
-      color-scheme: light dark;
+      color-scheme: light;
       --primary: #153706;
       --primary-muted: #F0F2EE;
-      --accent: #DEA002;
-      --accent-muted: #FAF3DC;
+      --background: #FFFFFF;
+      --surface-alt: #F5F5F7;
       --border: #E5E5EA;
       --text-primary: #1D1D1F;
       --text-secondary: #6E6E73;
@@ -19,139 +21,156 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: var(--text-primary);
-      background: #fff;
+      background: var(--background);
       -webkit-font-smoothing: antialiased;
     }
-    .wrap { max-width: 640px; margin: 0 auto; padding: 48px 24px 96px; }
+    .wrap { max-width: 560px; margin: 0 auto; padding: 24px 0 64px; }
 
-    .header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
-    .logo { width: 48px; height: 48px; object-fit: contain; border-radius: 12px; flex: none; }
-    h1 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; margin: 0; color: var(--primary); }
-    .sub { color: var(--text-tertiary); font-size: 0.9rem; margin: 2px 0 0; }
+    .hero { padding: 24px 24px 32px; }
+    .eyebrow {
+      font-size: 11px; line-height: 14px; font-weight: 600;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--text-tertiary); margin: 0 0 12px;
+    }
+    .hero-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    h1 { font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.5px; margin: 0; }
+    .logo { width: 68px; height: 68px; object-fit: contain; border-radius: 34px; flex: none; }
 
+    .section { margin-bottom: 32px; padding: 0 24px; }
+    /* typography.title3 — 20 / 25 / 600 / −0.2 */
     h2 {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      margin: 44px 0 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
+      font-size: 20px; line-height: 25px; font-weight: 600; letter-spacing: -0.2px;
+      color: var(--text-primary); margin: 0 0 16px;
     }
-    p { margin: 0 0 12px; }
-    a { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+    /* typography.body — 17 / 24 / 400 / −0.1 */
+    p { font-size: 17px; line-height: 24px; letter-spacing: -0.1px; margin: 0 0 12px; }
+    .lede { color: var(--text-secondary); }
+    a { color: var(--primary); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
 
+    /* carte pleine sans bordure — cf. styles.parcoursCard */
     .contact {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 18px;
-      border-radius: 14px;
+      display: flex; align-items: center;
       background: var(--primary-muted);
-      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
     }
-    .contact .icon {
-      flex: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .contact .icon-bubble {
+      flex: none; width: 36px; height: 36px; border-radius: 18px;
+      background: #FFFFFF;
+      display: flex; align-items: center; justify-content: center;
       color: var(--primary);
+      margin-right: 12px;
     }
-    .contact .icon svg { width: 18px; height: 18px; }
-    .contact .label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 2px; }
-    .contact a { font-weight: 500; word-break: break-all; }
+    .contact .icon-bubble svg { width: 20px; height: 20px; }
+    .contact .label {
+      font-size: 11px; line-height: 14px; font-weight: 600;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .contact a { font-size: 17px; line-height: 24px; word-break: break-all; }
 
-    .faq { border-top: 1px solid var(--border); }
-    .faq-item { padding: 18px 0; border-bottom: 1px solid var(--border); }
+    /* liste groupée — styles.list / styles.row */
+    .faq { background: var(--surface-alt); border-radius: 16px; overflow: hidden; }
+    .faq-item { padding: 16px; border-bottom: 0.5px solid var(--border); }
     .faq-item:last-child { border-bottom: none; }
-    .faq-item strong { display: block; font-size: 0.98rem; font-weight: 600; margin-bottom: 4px; }
-    .faq-item p { margin: 0; color: var(--text-secondary); }
-
-    .reqs { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-    .reqs li { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; color: var(--text-secondary); }
-    .reqs li svg { flex: none; width: 17px; height: 17px; color: var(--primary); }
-
-    @media (prefers-color-scheme: dark) {
-      body { color: #E5E5EA; background: #000; }
-      h1 { color: var(--accent); }
-      a { color: var(--accent); }
-      .sub, .faq-item p, .reqs li { color: #98989F; }
-      .contact { background: #1C1C1E; border-color: #2C2C2E; }
-      .contact .icon { background: #2C2C2E; color: var(--accent); }
-      h2 { color: #98989F; border-color: #2C2C2E; }
-      .faq { border-color: #2C2C2E; }
-      .faq-item { border-color: #2C2C2E; }
-      .reqs li svg { color: var(--accent); }
+    /* typography.headline — 17 / 22 / 600 / −0.1 */
+    .faq-item h3 {
+      font-size: 17px; line-height: 22px; font-weight: 600; letter-spacing: -0.1px;
+      margin: 0 0 4px; color: var(--text-primary);
     }
+    /* typography.subhead — 15 / 20 / 400 */
+    .faq-item p { font-size: 15px; line-height: 20px; letter-spacing: 0; color: var(--text-secondary); margin: 0; }
+
+    .reqs { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .reqs li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 15px; line-height: 20px; color: var(--text-secondary);
+    }
+    .reqs li svg { flex: none; width: 20px; height: 20px; color: var(--primary); }
+
+    .back {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin: 0 24px;
+      font-size: 15px; line-height: 20px; font-weight: 500;
+      color: var(--primary); text-decoration: none;
+    }
+    .back svg { width: 16px; height: 16px; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="header">
-      <img class="logo" src="./assets/logo.png" alt="Logo Dahira Diawartoulah" />
-      <div>
+    <div class="hero">
+      <p class="eyebrow">Dahira Diawartoulah Paris</p>
+      <div class="hero-row">
         <h1>Support</h1>
-        <p class="sub">Application du Dahira Diawartoulah (Paris)</p>
+        <img class="logo" src="./assets/logo.png" alt="Logo Dahira Diawartoulah" />
       </div>
     </div>
 
-    <p>MonDahira est l'application réservée aux membres du Dahira Diawartoulah (Paris) : trombinoscope, présences des séances, actualités, parcours d'intégration et organisation des samedis.</p>
+    <div class="section">
+      <p class="lede">MonDahira est l'application réservée aux membres du Dahira Diawartoulah (Paris) : trombinoscope, présences des séances, actualités, parcours d'intégration et organisation des samedis.</p>
+    </div>
 
-    <h2>Nous contacter</h2>
-    <p>Pour toute question, demande d'aide ou signalement d'un problème, écrivez-nous. Nous répondons dans les meilleurs délais.</p>
-    <div class="contact">
-      <div class="icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
-      </div>
-      <div>
-        <div class="label">E-mail</div>
-        <a href="mailto:diawartoulah.paris@gmail.com">diawartoulah.paris@gmail.com</a>
+    <div class="section">
+      <h2>Nous contacter</h2>
+      <p class="lede">Pour toute question, demande d'aide ou signalement d'un problème, écrivez-nous. Nous répondons dans les meilleurs délais.</p>
+      <div class="contact">
+        <span class="icon-bubble">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+        </span>
+        <span>
+          <span class="label">E-mail</span><br />
+          <a href="mailto:diawartoulah.paris@gmail.com">diawartoulah.paris@gmail.com</a>
+        </span>
       </div>
     </div>
 
-    <h2>Questions fréquentes</h2>
-    <div class="faq">
-      <div class="faq-item">
-        <strong>Mon compte est « en attente de validation »</strong>
-        <p>Après votre inscription, un administrateur du dahira doit valider votre adhésion avant que vous puissiez accéder à l'application. Si l'attente se prolonge, contactez-nous à l'adresse ci-dessus.</p>
-      </div>
-      <div class="faq-item">
-        <strong>J'ai oublié mon mot de passe</strong>
-        <p>Sur l'écran de connexion, touchez « Mot de passe oublié ». Vous recevrez par e-mail un code à 6 chiffres à saisir dans l'application pour définir un nouveau mot de passe.</p>
-      </div>
-      <div class="faq-item">
-        <strong>Comment modifier mes informations ?</strong>
-        <p>Depuis l'onglet Profil. Certaines informations sensibles (nom, prénom, téléphone, photo) sont validées par un administrateur avant d'être visibles par les autres membres.</p>
-      </div>
-      <div class="faq-item">
-        <strong>Notifications</strong>
-        <p>L'application peut vous envoyer des rappels (disponibilités, présences, actualités). Vous pouvez les activer ou les désactiver depuis les réglages de votre téléphone.</p>
-      </div>
-      <div class="faq-item">
-        <strong>Confidentialité et suppression de compte</strong>
-        <p>Vous pouvez à tout moment télécharger une copie de vos données ou supprimer définitivement votre compte depuis l'onglet Profil. Voir aussi notre <a href="./confidentialite.html">politique de confidentialité</a>.</p>
+    <div class="section">
+      <h2>Questions fréquentes</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <h3>Mon compte est « en attente de validation »</h3>
+          <p>Après votre inscription, un administrateur du dahira doit valider votre adhésion avant que vous puissiez accéder à l'application. Si l'attente se prolonge, contactez-nous à l'adresse ci-dessus.</p>
+        </div>
+        <div class="faq-item">
+          <h3>J'ai oublié mon mot de passe</h3>
+          <p>Sur l'écran de connexion, touchez « Mot de passe oublié ». Vous recevrez par e-mail un code à 6 chiffres à saisir dans l'application pour définir un nouveau mot de passe.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Comment modifier mes informations ?</h3>
+          <p>Depuis l'onglet Profil. Certaines informations sensibles (nom, prénom, téléphone, photo) sont validées par un administrateur avant d'être visibles par les autres membres.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Notifications</h3>
+          <p>L'application peut vous envoyer des rappels (disponibilités, présences, actualités). Vous pouvez les activer ou les désactiver depuis les réglages de votre téléphone.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Confidentialité et suppression de compte</h3>
+          <p>Vous pouvez à tout moment télécharger une copie de vos données ou supprimer définitivement votre compte depuis l'onglet Profil. Voir aussi notre <a href="./confidentialite.html">politique de confidentialité</a>.</p>
+        </div>
       </div>
     </div>
 
-    <h2>Configuration requise</h2>
-    <ul class="reqs">
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>
-        iOS 15 ou version ultérieure
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>
-        Application réservée aux personnes majeures
-      </li>
-    </ul>
+    <div class="section">
+      <h2>Configuration requise</h2>
+      <ul class="reqs">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>
+          iOS 15 ou version ultérieure
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>
+          Application réservée aux personnes majeures
+        </li>
+      </ul>
+    </div>
+
+    <a class="back" href="./index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></svg>
+      Retour
+    </a>
   </div>
 </body>
 </html>
