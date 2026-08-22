@@ -8,15 +8,13 @@
     :root {
       color-scheme: light dark;
       --primary: #153706;
-      --primary-muted: #F0F2EE;
+      --primary-dark: #0F2804;
       --accent: #DEA002;
-      --accent-muted: #FAF3DC;
-      --surface-alt: #F5F5F7;
       --border: #E5E5EA;
       --text-primary: #1D1D1F;
       --text-secondary: #6E6E73;
       --text-tertiary: #86868B;
-      --text-disabled: #C7C7CC;
+      --text-disabled: #B9B9BE;
     }
     * { box-sizing: border-box; }
     body {
@@ -24,7 +22,12 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
       color: var(--text-primary);
-      background: #fff;
+      background:
+        radial-gradient(ellipse 60% 45% at 22% 12%, rgba(222,160,2,0.30), transparent 65%),
+        radial-gradient(ellipse 55% 42% at 82% 30%, rgba(233,184,51,0.24), transparent 65%),
+        radial-gradient(ellipse 65% 50% at 46% 82%, rgba(201,138,2,0.20), transparent 65%),
+        radial-gradient(ellipse 50% 40% at 70% 95%, rgba(243,208,122,0.22), transparent 65%),
+        #FFFFFF;
       display: flex;
       min-height: 100vh;
       align-items: center;
@@ -38,37 +41,37 @@
     .links { display: flex; flex-direction: column; gap: 12px; }
     a.card,
     button.card {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       width: 100%;
-      padding: 16px 18px;
-      border-radius: 22px;
-      background: var(--primary-muted);
-      color: var(--primary);
+      padding: 17px 20px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
       font-family: inherit;
-      border: 1px solid var(--border);
+      border: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: opacity 0.15s ease;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+      box-shadow: 0 6px 16px rgba(21, 55, 6, 0.22);
     }
-    a.card:active { opacity: 0.7; }
+    a.card svg, button.card svg { width: 20px; height: 20px; flex: none; }
+    a.card:active { opacity: 0.85; transform: scale(0.98); }
 
-    a.card.primary {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
     a.card.accent {
-      background: var(--accent-muted);
-      color: #7A5900;
-      border-color: var(--border);
+      background: var(--accent);
+      color: #3A2900;
+      box-shadow: 0 6px 16px rgba(222, 160, 2, 0.25);
     }
     button.card[disabled] {
-      background: var(--surface-alt);
+      background: #EDEDEF;
       color: var(--text-disabled);
-      border-color: var(--border);
+      box-shadow: none;
       cursor: not-allowed;
     }
 
@@ -86,12 +89,18 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      body { color: #E5E5EA; background: #000; }
+      body {
+        color: #E5E5EA;
+        background:
+          radial-gradient(ellipse 60% 45% at 22% 12%, rgba(222,160,2,0.16), transparent 65%),
+          radial-gradient(ellipse 55% 42% at 82% 30%, rgba(233,184,51,0.13), transparent 65%),
+          radial-gradient(ellipse 65% 50% at 46% 82%, rgba(201,138,2,0.12), transparent 65%),
+          radial-gradient(ellipse 50% 40% at 70% 95%, rgba(243,208,122,0.10), transparent 65%),
+          #000000;
+      }
       h1 { color: var(--accent); }
       .sub, .note, a.back { color: #98989F; }
-      a.card:not(.primary):not(.accent) { background: #1C1C1E; color: #E5E5EA; border-color: #2C2C2E; }
-      a.card.accent { background: #2A230D; color: var(--accent); border-color: #3A2F14; }
-      button.card[disabled] { background: #1C1C1E; color: #636366; border-color: #2C2C2E; }
+      button.card[disabled] { background: #1C1C1E; color: #636366; }
     }
   </style>
 </head>
@@ -116,6 +125,9 @@
       return "other";
     }
 
+    var APPLE_SVG = '<svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141 4 184.8 4 273.6c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>';
+    var ANDROID_SVG = '<svg viewBox="0 0 576 512" fill="currentColor" aria-hidden="true"><path d="M420.55 301.93a24 24 0 1 1 24-24 24 24 0 0 1-24 24m-265.1 0a24 24 0 1 1 24-24 24 24 0 0 1-24 24m273.7-144.48 47.94-83a10 10 0 1 0-17.27-10l-48.54 84.07a301.25 301.25 0 0 0-246.56 0L116.18 64.45a10 10 0 1 0-17.27 10l47.94 83C64.53 202.22 8.24 285.55 0 384h576c-8.24-98.45-64.54-181.78-146.85-226.55"/></svg>';
+
     var IOS_URL = "https://apps.apple.com/us/app/mon-dahira/id6779175128";
     var links = document.getElementById("links");
     var platform = detectPlatform();
@@ -123,15 +135,15 @@
     var html = "";
 
     if (platform === "ios") {
-      html += '<a class="card primary" href="' + IOS_URL + '">Télécharger sur l\'App Store</a>';
-      html += '<button class="card" disabled>Bientôt disponible sur Android</button>';
+      html += '<a class="card" href="' + IOS_URL + '">' + APPLE_SVG + '<span>Télécharger sur l\'App Store</span></a>';
+      html += '<button class="card" disabled>' + ANDROID_SVG + '<span>Bientôt disponible sur Android</span></button>';
     } else if (platform === "android") {
-      html += '<button class="card" disabled>Bientôt disponible sur Android</button>';
+      html += '<button class="card" disabled>' + ANDROID_SVG + '<span>Bientôt disponible sur Android</span></button>';
       html += '<p class="note">L\'application est en cours de validation sur le Play Store.</p>';
-      html += '<a class="card accent" href="' + IOS_URL + '">Voir sur l\'App Store (iOS)</a>';
+      html += '<a class="card accent" href="' + IOS_URL + '">' + APPLE_SVG + '<span>Voir sur l\'App Store (iOS)</span></a>';
     } else {
-      html += '<a class="card primary" href="' + IOS_URL + '">Télécharger sur l\'App Store (iOS)</a>';
-      html += '<button class="card" disabled>Bientôt disponible sur Android</button>';
+      html += '<a class="card" href="' + IOS_URL + '">' + APPLE_SVG + '<span>Télécharger sur l\'App Store (iOS)</span></a>';
+      html += '<button class="card" disabled>' + ANDROID_SVG + '<span>Bientôt disponible sur Android</span></button>';
     }
 
     links.innerHTML = html;

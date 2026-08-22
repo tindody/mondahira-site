@@ -8,15 +8,10 @@
     :root {
       color-scheme: light dark;
       --primary: #153706;
-      --primary-muted: #F0F2EE;
       --accent: #DEA002;
-      --accent-muted: #FAF3DC;
-      --surface-alt: #F5F5F7;
-      --border: #E5E5EA;
       --text-primary: #1D1D1F;
       --text-secondary: #6E6E73;
-      --text-tertiary: #86868B;
-      --text-disabled: #C7C7CC;
+      --text-disabled: #B9B9BE;
     }
     * { box-sizing: border-box; }
     body {
@@ -24,7 +19,12 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
       color: var(--text-primary);
-      background: #fff;
+      background:
+        radial-gradient(ellipse 60% 45% at 22% 12%, rgba(222,160,2,0.30), transparent 65%),
+        radial-gradient(ellipse 55% 42% at 82% 30%, rgba(233,184,51,0.24), transparent 65%),
+        radial-gradient(ellipse 65% 50% at 46% 82%, rgba(201,138,2,0.20), transparent 65%),
+        radial-gradient(ellipse 50% 40% at 70% 95%, rgba(243,208,122,0.22), transparent 65%),
+        #FFFFFF;
       display: flex;
       min-height: 100vh;
       align-items: center;
@@ -37,24 +37,35 @@
     .links { display: flex; flex-direction: column; gap: 12px; }
     a.card {
       display: block;
-      padding: 16px 18px;
-      border-radius: 22px;
-      background: var(--primary-muted);
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      border: 1px solid var(--border);
-    }
-    a.card.primary {
+      padding: 17px 20px;
+      border-radius: 999px;
       background: var(--primary);
       color: #fff;
-      border-color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 6px 16px rgba(21, 55, 6, 0.22);
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+    }
+    a.card:active { opacity: 0.85; transform: scale(0.98); }
+    a.card.accent {
+      background: var(--accent);
+      color: #3A2900;
+      box-shadow: 0 6px 16px rgba(222, 160, 2, 0.25);
     }
     @media (prefers-color-scheme: dark) {
-      body { color: #E5E5EA; background: #000; }
+      body {
+        color: #E5E5EA;
+        background:
+          radial-gradient(ellipse 60% 45% at 22% 12%, rgba(222,160,2,0.16), transparent 65%),
+          radial-gradient(ellipse 55% 42% at 82% 30%, rgba(233,184,51,0.13), transparent 65%),
+          radial-gradient(ellipse 65% 50% at 46% 82%, rgba(201,138,2,0.12), transparent 65%),
+          radial-gradient(ellipse 50% 40% at 70% 95%, rgba(243,208,122,0.10), transparent 65%),
+          #000000;
+      }
       h1 { color: var(--accent); }
       .sub { color: #98989F; }
-      a.card:not(.primary) { background: #1C1C1E; color: #E5E5EA; border-color: #2C2C2E; }
     }
   </style>
 </head>
@@ -64,9 +75,9 @@
     <h1>MonDahira</h1>
     <p class="sub">Application du Dahira Diawartoulah (Paris)</p>
     <div class="links">
-      <a class="card primary" href="./telecharger.html">Télécharger l'application</a>
-      <a class="card" href="./support.html">Support &amp; aide</a>
-      <a class="card" href="./confidentialite.html">Politique de confidentialité</a>
+      <a class="card" href="./telecharger.html">Télécharger l'application</a>
+      <a class="card accent" href="./support.html">Support &amp; aide</a>
+      <a class="card accent" href="./confidentialite.html">Politique de confidentialité</a>
     </div>
   </div>
 </body>
