@@ -8,9 +8,12 @@
     :root {
       color-scheme: light dark;
       --primary: #153706;
+      --primary-muted: #F0F2EE;
       --accent: #DEA002;
+      --border: #E5E5EA;
       --text-primary: #1D1D1F;
       --text-secondary: #6E6E73;
+      --text-tertiary: #86868B;
     }
     * { box-sizing: border-box; }
     body {
@@ -19,25 +22,59 @@
       line-height: 1.6;
       color: var(--text-primary);
       background: #fff;
+      -webkit-font-smoothing: antialiased;
     }
-    .wrap { max-width: 720px; margin: 0 auto; padding: 40px 20px 80px; }
-    h1 { font-size: 1.9rem; letter-spacing: -0.02em; margin-bottom: 4px; color: var(--primary); }
-    h2 { font-size: 1.2rem; margin-top: 36px; margin-bottom: 8px; color: var(--primary); }
-    .maj { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px; }
+    .wrap { max-width: 640px; margin: 0 auto; padding: 48px 24px 96px; }
+
+    .header { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+    .logo { width: 48px; height: 48px; object-fit: contain; border-radius: 12px; flex: none; }
+    h1 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; margin: 0; color: var(--primary); }
+    .maj { color: var(--text-tertiary); font-size: 0.9rem; margin: 24px 0 0; }
+
+    h2 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin: 40px 0 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
     p { margin: 0 0 12px; }
-    a { color: var(--primary); }
+    a { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+    .callout {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: var(--primary-muted);
+      border: 1px solid var(--border);
+      margin: 4px 0 0;
+    }
+    .callout svg { flex: none; width: 20px; height: 20px; color: var(--primary); margin-top: 2px; }
+    .callout p { margin: 0; color: var(--text-secondary); }
+
     @media (prefers-color-scheme: dark) {
       body { color: #E5E5EA; background: #000; }
-      h1, h2 { color: var(--accent); }
+      h1 { color: var(--accent); }
       a { color: var(--accent); }
       .maj { color: #98989F; }
+      h2 { color: #98989F; border-color: #2C2C2E; }
+      .callout { background: #1C1C1E; border-color: #2C2C2E; }
+      .callout svg { color: var(--accent); }
+      .callout p { color: #98989F; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <img src="./assets/logo.png" alt="Logo Dahira Diawartoulah" style="width:64px;height:64px;object-fit:contain;margin:0 0 12px;display:block;" />
-    <h1>Politique de confidentialité</h1>
+    <div class="header">
+      <img class="logo" src="./assets/logo.png" alt="Logo Dahira Diawartoulah" />
+      <h1>Politique de confidentialité</h1>
+    </div>
     <p class="maj">MonDahira — Dernière mise à jour : 20 juillet 2026</p>
 
     <p>Cette politique explique quelles données personnelles l'application MonDahira collecte, pourquoi, combien de temps elles sont conservées, et quels sont vos droits. Nous nous engageons à traiter vos données dans le respect du Règlement général sur la protection des données (RGPD).</p>
@@ -68,8 +105,14 @@
 
     <h2>Vos droits</h2>
     <p>Vous disposez à tout moment des droits suivants : accès à vos données, rectification, effacement, retrait de votre consentement, portabilité et opposition.</p>
-    <p>Directement dans l'application : vous pouvez modifier vos informations depuis votre profil, masquer votre numéro, télécharger une copie de vos données (bouton « Télécharger mes données »), retirer votre consentement, et supprimer définitivement votre compte.</p>
-    <p>Pour toute autre demande, contactez <a href="mailto:diawartoulah.paris@gmail.com">diawartoulah.paris@gmail.com</a>. Vous pouvez également introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr">www.cnil.fr</a>) si vous estimez que vos droits ne sont pas respectés.</p>
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5"/>
+        <path d="M4.5 16.5V18a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-1.5"/>
+      </svg>
+      <p>Directement dans l'application : vous pouvez modifier vos informations depuis votre profil, masquer votre numéro, télécharger une copie de vos données (bouton « Télécharger mes données »), retirer votre consentement, et supprimer définitivement votre compte.</p>
+    </div>
+    <p style="margin-top:12px">Pour toute autre demande, contactez <a href="mailto:diawartoulah.paris@gmail.com">diawartoulah.paris@gmail.com</a>. Vous pouvez également introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr">www.cnil.fr</a>) si vous estimez que vos droits ne sont pas respectés.</p>
 
     <h2>Sécurité</h2>
     <p>L'accès aux données est protégé par une authentification individuelle et un cloisonnement strict entre les dahiras : chaque membre n'accède qu'aux données des espaces auxquels il appartient.</p>
